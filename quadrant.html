@@ -1,0 +1,120 @@
+<html>
+<head>
+  <script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js"></script>
+  <script src="https://cdn.anychart.com/releases/v8/js/anychart-ui.min.js"></script>
+  <script src="https://cdn.anychart.com/releases/v8/js/anychart-exports.min.js"></script>
+  <script src="https://cdn.anychart.com/releases/v8/js/anychart-data-adapter.min.js"></script>
+  <link href="https://cdn.anychart.com/releases/v8/css/anychart-ui.min.css" type="text/css" rel="stylesheet">
+  <link href="https://cdn.anychart.com/releases/v8/fonts/css/anychart-font.min.css" type="text/css" rel="stylesheet">
+  <style type="text/css">
+
+      html,
+      body,
+      #container {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    
+</style>
+</head>
+<body>
+    
+  <div id="container"></div>
+    
+  
+  <script>
+
+      anychart.onDocumentReady(function () {
+        // The data used in this sample can be obtained from the CDN
+        //https://cdn.anychart.com/samples/quadrant-charts/albums-by-listener-rank-vs-rank-by-plays/data.json
+        //https://www.anychart.com/products/anychart/gallery/Quadrant_Charts/Albums_by_Listener_Rank_vs_Rank_by_Plays.php
+        anychart.data.loadJsonFile(
+          'http://localhost:8080/data.json',
+          function (data) {
+            // create quadrant chart
+            var chart = anychart.quadrant();
+            // set chart title
+            chart.title('Extensions by Downloads (x), by Releases (y), within the last 12 months');
+
+            // set quarters settings
+            chart.quarters({
+              rightTop: {
+                fill: anychart.color.lighten('#dd3f2a', 0.85),
+                title: {
+                  text: 'Higher Downloads, Higher Releases\nKeep Investment',
+                  padding: 10
+                }
+              },
+              rightBottom: {
+                fill: anychart.color.lighten('#e96a26', 0.85),
+                title: {
+                  text: 'Higher Downloads, Lowr Releases\nIncrease Investment', // 'Higher Downloads, Lower Releases',
+                  padding: 10
+                }
+              },
+              leftTop: {
+                fill: anychart.color.lighten('#ffb726', 0.85),
+                title: {
+                  text: 'Lower Downloads, Higher Releases\nDecrease Investment',
+                  padding: 10
+                }
+              },
+              leftBottom: {
+                fill: anychart.color.lighten('#6e9c4e', 0.85),
+                title: {
+                  text: 'Lower Downloads, Lower Releases\nKeep Investment', // Lower Downloads, Lower Releases',
+                  padding: 10
+                }
+              }
+            });
+
+            // map data for the series
+            var dataSet = anychart.data.set(data).mapAs({
+              x: 'Downloads',
+              value: 'Releases',
+              name: 'Name',
+            });
+
+            // create marker series
+            var markers = chart.marker(dataSet);
+
+            // set labels settings
+            markers
+              .labels()
+              .enabled(true)
+              .format(function () {
+                return this.getData('name');
+              });
+
+            // set tooltip settings
+            markers
+              .tooltip()
+              .titleFormat(function () {
+                return this.getData('name');
+              })
+              .format(function () {
+                return (
+                  'Releases: ' +
+                  this.value +
+                  '\n' +
+                  'Download: ' +
+                  this.x +
+                  '\n' +
+                  'Name: ' +
+                  this.getData('name')
+                );
+              });
+
+            // set chart container id
+            chart.container('container');
+            // initiate chart drawing
+            chart.draw();
+          }
+        );
+      });
+    
+</script>
+</body>
+</html>
