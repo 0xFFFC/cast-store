@@ -43,27 +43,31 @@
               rightTop: {
                 fill: anychart.color.lighten('#dd3f2a', 0.85),
                 title: {
-                  text: 'Higher Downloads, Higher Releases\nKeep Investment',
-                  padding: 10
+                    fontColor: "black",                
+                    text: 'Higher Downloads, Higher Releases\nKeep Investment',
+                    padding: 10
                 }
               },
               rightBottom: {
                 fill: anychart.color.lighten('#e96a26', 0.85),
                 title: {
-                  text: 'Higher Downloads, Lowr Releases\nIncrease Investment', // 'Higher Downloads, Lower Releases',
-                  padding: 10
+                    fontColor: "black",                
+                    text: 'Higher Downloads, Lower Releases\nIncrease Investment', // 'Higher Downloads, Lower Releases',
+                    padding: 10
                 }
               },
               leftTop: {
                 fill: anychart.color.lighten('#ffb726', 0.85),
                 title: {
-                  text: 'Lower Downloads, Higher Releases\nDecrease Investment',
-                  padding: 10
+                    fontColor: "black",                
+                    text: 'Lower Downloads, Higher Releases\nDecrease Investment',
+                    padding: 10
                 }
               },
               leftBottom: {
                 fill: anychart.color.lighten('#6e9c4e', 0.85),
                 title: {
+                  fontColor: "black",
                   text: 'Lower Downloads, Lower Releases\nKeep Investment', // Lower Downloads, Lower Releases',
                   padding: 10
                 }
@@ -83,6 +87,7 @@
             // set labels settings
             markers
               .labels()
+              .fontColor("black")
               .enabled(true)
               .format(function () {
                 return this.getData('name');
