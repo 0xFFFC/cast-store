@@ -90,7 +90,8 @@ var collect = (json) => {
         
         // caculate number of versions since one year
         if (((new Date()).getTime() - (new Date(it.published)).getTime()) < oneYear) {
-            extension.recentReleasesCount += 1
+            if (extension.versionType === "funcrel" || extension.versionType !== "lts")
+                extension.recentReleasesCount += 1
             extension.recentDownloadsCount += it.versionDownloads;
         }    
     });

@@ -74,6 +74,16 @@
               }
             });
 
+            // Project to values between 0 and 100
+            var higherDownloads = Math.max(...data.map((it)=> it["Downloads"]));
+            var higherReleases = Math.max(...data.map((it)=> it["Releases"]));
+
+            data = data.map((it)=> {
+                it["Downloads"] = (it["Downloads"]*100.0/higherDownloads);
+                it["Releases"] = (it["Releases"]*100.0/higherReleases);
+                return it;
+            });
+
             // map data for the series
             var dataSet = anychart.data.set(data).mapAs({
               x: 'Downloads',
