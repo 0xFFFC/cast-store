@@ -257,7 +257,7 @@ var unavailable = (e) => {
     $('#output').html('Service not available, please check <a href="https://extendng.castsoftware.com">https://extendng.castsoftware.com</a>');
 }
 
-$.when( $.ajax( "https://extendng.castsoftware.com/api/package" ), $.ajax( "template.html" ) )
+$.when( $.ajax( "https://extend.castsoftware.com/api/package" ), $.ajax( "template.html" ) )
   .then( render, unavailable );
 
 </script> 
